@@ -1,14 +1,15 @@
 const express = require("express");
-const app = express();
-const routes = require("./routes");
+const router = express.Router();
+const gymLeaderRoutes = require("./gymLeaders")
 
-app.get("/", (req, res) => {
-    res.status(200).json({
-        success: true,
-        message: "Server Works!!!"
-    });
-});
+router.get("/", (req, res)=>{
+    res
+        .status(200)
+        .json({
+            success:true,
+            message:`${req.method} made from routes/index.js`
+        })
+})
+router.use("/gymleaders", gymLeaderRoutes)
 
-app.use("/", routes);
-
-module.exports = app;
+module.exports = router;

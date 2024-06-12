@@ -1,0 +1,194 @@
+[
+    {
+        "name": "Brock",
+        "gym": "Pewter City",
+        "badge": "Boulder Badge",
+        "pokemon": [
+            {
+                "name": "Geodude",
+                "level": 12
+            },
+            {
+                "name": "Onix",
+                "level": 14
+            }
+        ],
+        "reward": {
+            "tm": "TM34 (Bide)",
+            "money": 1386
+        }
+    },
+    {
+        "name": "Misty",
+        "gym": "Cerulean City",
+        "badge": "Cascade Badge",
+        "pokemon": [
+            {
+                "name": "Staryu",
+                "level": 18
+            },
+            {
+                "name": "Starmie",
+                "level": 21
+            }
+        ],
+        "reward": {
+            "tm": "TM11 (BubbleBeam)",
+            "money": 2079
+        }
+    },
+    {
+        "name": "Lt. Surge",
+        "gym": "Vermilion City",
+        "badge": "Thunder Badge",
+        "pokemon": [
+            {
+                "name": "Voltorb",
+                "level": 21
+            },
+            {
+                "name": "Pikachu",
+                "level": 18
+            },
+            {
+                "name": "Raichu",
+                "level": 24
+            }
+        ],
+        "reward": {
+            "tm": "TM24 (Thunderbolt)",
+            "money": 2385
+        }
+    },
+    {
+        "name": "Erika",
+        "gym": "Celadon City",
+        "badge": "Rainbow Badge",
+        "pokemon": [
+            {
+                "name": "Victreebel",
+                "level": 29
+            },
+            {
+                "name": "Tangela",
+                "level": 24
+            },
+            {
+                "name": "Vileplume",
+                "level": 29
+            }
+        ],
+        "reward": {
+            "tm": "TM21 (Mega Drain)",
+            "money": 2871
+        }
+    },
+    {
+        "name": "Koga",
+        "gym": "Fuchsia City",
+        "badge": "Soul Badge",
+        "pokemon": [
+            {
+                "name": "Koffing",
+                "level": 37
+            },
+            {
+                "name": "Muk",
+                "level": 39
+            },
+            {
+                "name": "Koffing",
+                "level": 37
+            },
+            {
+                "name": "Weezing",
+                "level": 43
+            }
+        ],
+        "reward": {
+            "tm": "TM06 (Toxic)",
+            "money": 4158
+        }
+    },
+    {
+        "name": "Sabrina",
+        "gym": "Saffron City",
+        "badge": "Marsh Badge",
+        "pokemon": [
+            {
+                "name": "Kadabra",
+                "level": 38
+            },
+            {
+                "name": "Mr. Mime",
+                "level": 37
+            },
+            {
+                "name": "Venomoth",
+                "level": 38
+            },
+            {
+                "name": "Alakazam",
+                "level": 43
+            }
+        ],
+        "reward": {
+            "tm": "TM46 (Psywave)",
+            "money": 4959
+        }
+    },
+    {
+        "name": "Blaine",
+        "gym": "Cinnabar Island",
+        "badge": "Volcano Badge",
+        "pokemon": [
+            {
+                "name": "Ninetales",
+                "level": 42
+            },
+            {
+                "name": "Rapidash",
+                "level": 42
+            },
+            {
+                "name": "Arcanine",
+                "level": 47
+            }
+        ],
+        "reward": {
+            "tm": "TM38 (Fire Blast)",
+            "money": 4959
+        }
+    },
+    {
+        "name": "Giovanni",
+        "gym": "Viridian City",
+        "badge": "Earth Badge",
+        "pokemon": [
+            {
+                "name": "Rhyhorn",
+                "level": 45
+            },
+            {
+                "name": "Dugtrio",
+                "level": 42
+            },
+            {
+                "name": "Nidoqueen",
+                "level": 44
+            },
+            {
+                "name": "Nidoking",
+                "level": 45
+            },
+            {
+                "name": "Rhydon",
+                "level": 50
+            }
+        ],
+        "reward": {
+            "tm": "TM27 (Fissure)",
+            "money": 5940
+        }
+    }
+]
