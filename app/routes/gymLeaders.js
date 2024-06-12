@@ -4,7 +4,7 @@ const {
     getAllGL,
     getGLbyID,
     getGLbyName,
-    delGLbyName,
+    delGL,
     createGL,
     editGL
 } = require("../controller/gmldController")
@@ -19,13 +19,13 @@ router.get("/search/id/:id", getGLbyID);
 //Get by Name
 router.get("/search/name/:name", getGLbyName);
 
-//Delete by name
-router.delete("/delete/:name", delGLbyName);
+//Delete by ID
+router.delete("/delete/:id", delGL);
 
 //Create new
-router.post("/create/:name", createGL);
+router.post("/create", createGL);
 
-//Edit existing searching by name
-router.put("/edit/:name", editGL);
+//Edit existing searching by ID
+router.put("/edit/:id", editGL);
 
 module.exports = router;

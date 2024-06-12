@@ -1,6 +1,7 @@
 [
     {
         "name": "Brock",
+        "sprite":"https://www.serebii.net/pokearth/trainers/rby/26.png",
         "gym": "Pewter City",
         "badge": "Boulder Badge",
         "pokemon": [
@@ -16,10 +17,12 @@
         "reward": {
             "tm": "TM34 (Bide)",
             "money": 1386
-        }
+        },
+        "description": "Brock is the rock-solid Gym Leader of Pewter City. With a passion for Rock-type Pokémon, he serves as a model of strength and resilience for aspiring trainers. When not training, he cares for his younger siblings, demonstrating both his strength and nurturing side."
     },
     {
         "name": "Misty",
+        "sprite":"https://www.serebii.net/pokearth/trainers/rby/27.png",
         "gym": "Cerulean City",
         "badge": "Cascade Badge",
         "pokemon": [
@@ -35,7 +38,8 @@
         "reward": {
             "tm": "TM11 (BubbleBeam)",
             "money": 2079
-        }
+        },
+        "description": "Misty is the fierce and competitive Gym Leader of Cerulean City, specializing in Water-type Pokémon. As a skilled swimmer and a confident trainer, she aspires to become a top Pokémon master. Her vibrant personality and dedication to training inspire many young trainers."
     },
     {
         "name": "Lt. Surge",
@@ -58,7 +62,8 @@
         "reward": {
             "tm": "TM24 (Thunderbolt)",
             "money": 2385
-        }
+        },
+        "description": "Lt. Surge, known as the 'Lightning American,' is the Gym Leader of Vermilion City. His Electric-type Pokémon reflect his energetic and dynamic nature. A former soldier, Lt. Surge uses his battlefield experience to strategize and electrify his opponents in gym battles."
     },
     {
         "name": "Erika",
@@ -81,7 +86,8 @@
         "reward": {
             "tm": "TM21 (Mega Drain)",
             "money": 2871
-        }
+        },
+        "description": "Erika, the serene and graceful Gym Leader of Celadon City, specializes in Grass-type Pokémon. She is also a lover of nature and floral arrangements. Erika's calm demeanor and elegant battling style make her a beloved figure among trainers and residents of Celadon City."
     },
     {
         "name": "Koga",
@@ -108,7 +114,8 @@
         "reward": {
             "tm": "TM06 (Toxic)",
             "money": 4158
-        }
+        },
+        "description": "Koga, the mysterious and skilled Gym Leader of Fuchsia City, specializes in Poison-type Pokémon. A master of ninjutsu, Koga employs stealth and cunning in his battles, often using status conditions to gain the upper hand. He is also responsible for the Safari Zone in Fuchsia City."
     },
     {
         "name": "Sabrina",
@@ -135,7 +142,8 @@
         "reward": {
             "tm": "TM46 (Psywave)",
             "money": 4959
-        }
+        },
+        "description": "Sabrina, the enigmatic and powerful Gym Leader of Saffron City, specializes in Psychic-type Pokémon. Known for her telekinetic abilities, she is a formidable opponent in battle. Sabrina's stoic and mysterious nature adds to her aura, making her a respected and feared leader."
     },
     {
         "name": "Blaine",
@@ -158,7 +166,8 @@
         "reward": {
             "tm": "TM38 (Fire Blast)",
             "money": 4959
-        }
+        },
+        "description": "Blaine, the fiery Gym Leader of Cinnabar Island, is a master of Fire-type Pokémon. His passion for science and Pokémon training makes him a unique and knowledgeable leader. Blaine's intense training methods and strategic use of fire attacks challenge even the most seasoned trainers."
     },
     {
         "name": "Giovanni",
@@ -189,6 +198,7 @@
         "reward": {
             "tm": "TM27 (Fissure)",
             "money": 5940
-        }
+        },
+        "description": "Giovanni, the enigmatic and ruthless Gym Leader of Viridian City, specializes in Ground-type Pokémon. He is also the leader of the criminal organization Team Rocket. Giovanni's strategic mind and powerful Pokémon make him a formidable opponent, embodying the darker side of Pokémon training."
     }
 ]
