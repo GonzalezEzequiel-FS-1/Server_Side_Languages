@@ -1,0 +1,19 @@
+Type   Description
+Normal = Standard type with no particular strengths or weaknesses
+Fire = Fire-type Pokémon, vulnerable to Water, Ground, and Rock
+Water = Water-type Pokémon, vulnerable to Electric and Grass
+Electric = Electric-type Pokémon, vulnerable to Ground
+Grass = Grass-type Pokémon, vulnerable to Fire, Ice, Poison, Flying, and Bug
+Ice = Ice-type Pokémon, vulnerable to Fire, Fighting, Rock, and Steel
+Fighting = Fighting-type Pokémon, vulnerable to Flying, Psychic, and Fairy
+Poison = Poison-type Pokémon, vulnerable to Ground and Psychic
+Ground = Ground-type Pokémon, vulnerable to Water, Grass, and Ice
+Flying = Flying-type Pokémon, vulnerable to Electric, Ice, and Rock
+Psychic = Psychic-type Pokémon, vulnerable to Bug, Ghost, and Dark
+Bug = Bug-type Pokémon, vulnerable to Fire, Flying, and Rock
+Rock = Rock-type Pokémon, vulnerable to Water, Grass, Fighting, Ground, and Steel
+Ghost = Ghost-type Pokémon, vulnerable to Ghost and Dark, immune to Normal and Fighting unless using a specific move
+Dragon = Dragon-type Pokémon, vulnerable to Ice, Dragon, and Fairy
+Fairy = Fairy-type Pokémon, vulnerable to Poison and Steel, immune to Dragon
+Steel = Steel-type Pokémon, vulnerable to Fire, Fighting, and Ground, immune to Poison
+Dark = Dark-type Pokémon, vulnerable to Fighting, Bug, and Fairy, immune to Psychic

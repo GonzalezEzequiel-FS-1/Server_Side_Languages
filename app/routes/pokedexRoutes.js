@@ -7,7 +7,8 @@ const {
     getPkmnbyName,
     delPkmn,
     createPkmn,
-    editPkmn
+    editPkmn,
+    uploadAll
 } = require("../controller/pokedexController")
 
 
@@ -28,5 +29,8 @@ router.post("/create", createPkmn);
 
 //Edit existing searching by ID
 router.put("/edit/:id", editPkmn);
+
+//Upload the complete pokedex (Initial Dump)
+router.post("/dump", uploadAll)
 
 module.exports = router;

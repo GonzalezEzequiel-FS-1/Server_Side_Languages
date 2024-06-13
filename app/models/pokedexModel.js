@@ -26,11 +26,11 @@ const pokedexSchema = new Schema({
     },
     type: [{
         type: String,
-        //for the types I included an Enum with all the available types for the first gen.
+        //for the types I used an Enum with all of the 18 available types for the first gen.
         enum: [
             'Normal', 'Fire', 'Water', 'Electric', 'Grass', 'Ice',
             'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic',
-            'Bug', 'Rock', 'Ghost', 'Dragon'
+            'Bug', 'Rock', 'Ghost', 'Dragon', 'Steel', 'Fairy', 'Dark'
         ]
     }],
     height:{
@@ -43,11 +43,14 @@ const pokedexSchema = new Schema({
     },
     weaknesses: [{
         type: String,
-        //Same priciple as the type
+        //For some reason, this one is not working, it's breaking my brain...
+        //It never worked.
+        //Never Mind, the problem was on the destructuring at the controller, I didn't add weaknesses, so it skipped it!
+        //Working now!
         enum: [
             'Normal', 'Fire', 'Water', 'Electric', 'Grass', 'Ice',
             'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic',
-            'Bug', 'Rock', 'Ghost', 'Dragon'
+            'Bug', 'Rock', 'Ghost', 'Dragon', 'Steel', 'Fairy', 'Dark'
         ]
     }],
     prev_evolution:[{

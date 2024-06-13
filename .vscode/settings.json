@@ -19,6 +19,7 @@
         "Pkmn",
         "Pkmnby",
         "pokedex",
+        "Pokémons",
         "Psywave",
         "Raichu",
         "Rapidash",
@@ -32,5 +33,13 @@
         "Vileplume",
         "Voltorb",
         "Weezing"
-    ]
+    ],
+    "cSpell.customDictionaries": {
+        "custom-dictionary-workspace": {
+            "name": "custom-dictionary-workspace",
+            "path": "${workspaceFolder:Server_Side_Languages}/.cspell/custom-dictionary-workspace.txt",
+            "addWords": true,
+            "scope": "workspace"
+        }
+    }
 }
