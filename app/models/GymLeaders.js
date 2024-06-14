@@ -29,6 +29,8 @@ const gymLeadersSchema = new mongoose.Schema({
         },
         level: {
             type: Number,
+            min:[1, "Level must be at least 1"],
+            max:[99, "Level cannot go above 99"],
             required: true
         }
     }],

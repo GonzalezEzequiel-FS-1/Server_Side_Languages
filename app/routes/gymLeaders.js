@@ -6,13 +6,17 @@ const {
     getGLbyName,
     delGL,
     createGL,
-    editGL
+    editGL,
+    uploadAll,
+    delAll
 } = require("../controller/gmldController")
 
-
+//Create Multiple
+router.post("/dump", uploadAll);
 //Get all
 router.get("/", getAllGL);
-
+// Delete all
+router.delete("/deleteall", delAll)
 //Get by ID
 router.get("/search/id/:id", getGLbyID);
 

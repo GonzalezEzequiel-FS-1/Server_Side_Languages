@@ -8,7 +8,9 @@ const {
     delPkmn,
     createPkmn,
     editPkmn,
-    uploadAll
+    uploadAll,
+    getPkmnByWk,
+    delAll
 } = require("../controller/pokedexController")
 
 
@@ -21,6 +23,9 @@ router.get("/search/id/:id", getPkmnbyID);
 //Get by Name
 router.get("/search/name/:name", getPkmnbyName);
 
+//Get by Weakness
+router.get("/search/weakness/:weak", getPkmnByWk)
+
 //Delete by ID
 router.delete("/delete/:id", delPkmn);
 
@@ -32,5 +37,8 @@ router.put("/edit/:id", editPkmn);
 
 //Upload the complete pokedex (Initial Dump)
 router.post("/dump", uploadAll)
+
+//Delete All entries
+router.delete("/deleteall", delAll)
 
 module.exports = router;

@@ -76,3 +76,5 @@ const pokedexSchema = new Schema({
 });
 
 module.exports = mongoose.model('Pokedex', pokedexSchema);
+//used the backup to link the leaders DB and the pokedex one without having to reset the IDs each time I deleted an entry in testing
+//module.exports = mongoose.model('PokedexBackup', pokedexSchema);

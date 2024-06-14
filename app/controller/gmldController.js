@@ -148,6 +148,33 @@ const delGL = async (req, res) => {
             })
     }
 };
+//Delete all:
+const delAll = async (req,res) =>{
+    try {
+        //Requesting the data from the user
+        const GymLeaderArray = req.body;
+        //Check if the data is valid, or if its there at all
+        if (!GymLeaderArray || GymLeaderArray.length === 0) {
+            res.status(501).json({
+                success: false,
+                message: `${req.method} - No data or incomplete data provided`
+            })
+            return;
+        };
+        //"Pack the data and send it to the DB using deleteMany"
+        const arrayToUpload = await GymLeaders.deleteMany(GymLeaderArray)
+            res.status(200).json({
+                success: true,
+                message:`Deleted ${arrayToUpload.deletedCount} all Gym Leaders Successfully`
+            });
+        //Finally catch any errors and display the code and message.
+    } catch (error) {
+        res.status(404).json({
+            success:false,
+            message:`Failed to Delete Gym Leaders ${error.message}`
+        })
+    }
+}
 //Create Gym Leader
 const createGL = async (req, res) => {
     try {
@@ -172,7 +199,7 @@ const createGL = async (req, res) => {
         //Log the New Gym Leader to the console
         // console.log(`Data >>> ${newLeader}`)
         res
-            .status(200)
+            .status(201)
             .json({
                 success: true,
                 message: `${req.method} - Created new Gym Leader`,
@@ -230,11 +257,40 @@ const editGL = async (req, res) => {
             })
     };
 };
+
+const uploadAll = async (req, res) => {
+    try {
+        //Requesting the data from the user
+        const GymLeaderArray = req.body;
+        //Check if the data is valid, or if its there at all
+        if (!GymLeaderArray || GymLeaderArray.length === 0) {
+            res.status(501).json({
+                success: false,
+                message: `${req.method} - No data or incomplete data provided`
+            })
+            return;
+        };
+        //"Pack the data and send it to the DB using insertMany"
+        const arrayToUpload = await GymLeaders.insertMany(GymLeaderArray)
+            res.status(201).json({
+                success: true,
+                message:`Created ${arrayToUpload.length} Gym Leaders Successfully`
+            });
+        //Finnaly catch any errors and display the code and message.
+    } catch (error) {
+        res.status(404).json({
+            success:false,
+            message:`Failed to create Gym Leaders ${error.message}`
+        })
+    }
+}
 module.exports = {
     getAllGL,
     getGLbyID,
     getGLbyName,
     delGL,
     createGL,
-    editGL
+    editGL,
+    uploadAll,
+    delAll
 };
