@@ -26,6 +26,7 @@ const gymLeadersSchema = new mongoose.Schema({
             type: String,
             required: true,
             trim:true,
+            ref:'pokedex'
         },
         level: {
             type: Number,
