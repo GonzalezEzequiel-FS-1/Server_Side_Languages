@@ -328,7 +328,8 @@ const delAll = async (req,res) =>{
             message:`Failed to Delete Gym Leaders ${error.message}`
         })
     }
-}
+};
+            
 
             module.exports = {
                 getAllPkmn,

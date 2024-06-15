@@ -1,4 +1,6 @@
 const GymLeaders = require('../models/GymLeaders');
+const Pokedex = require('../models/pokedexModel')
+
 const capFirst = require("../misc/modules/capitalizeFirstLetter");
 //Get All Gym LEaders
 const getAllGL = async (req, res) => {
@@ -178,50 +180,75 @@ const delAll = async (req,res) =>{
 //Create Gym Leader
 const createGL = async (req, res) => {
     try {
-        //Deconstruct the Gym Leader and accept the parameters from req.body
-        const {
-            name,
-            gym,
-            badge,
-            pokemon,
-            reward,
-            description
-        } = req.body;
-        //Create the Gym Leader from the req.body
+        // First, we destructure the body
+        const { name, gym, badge, pokemon, reward, description } = req.body;
+        
+        // then we validate the input fields
+        if (!name || !gym || !badge || !pokemon || !reward || !description) {
+            return res.status(400).json({
+                success: false,
+                message: `${req.method}, missing required fields`
+            });
+        }
+
+        // I thought, that the easiest way would be to create an empty array to store the id's since there can be more than 1 pokemon
+        const pokemonIds = [];
+
+        // Then we iterate over each pokemon in the request body and fetch their ObjectId from Pokedex
+        for (let i = 0; i < pokemon.length; i++) {
+            const pokemonName = pokemon[i].name;
+
+            // Now, we fetch the ObjectId of the Pokémon from the Pokedex Schema
+            const queriedPkmn = await Pokedex.findOne({ name: pokemonName });
+            
+            if (!queriedPkmn) {
+                return res.status(404).json({
+                    success: false,
+                    message: `${req.method}, Pokémon ${pokemonName} not found in Pokedex`
+                });
+            }
+
+            // Finally we push the id's
+            pokemonIds.push({
+                name: queriedPkmn._id,
+                level: pokemon[i].level
+            });
+        }
+
+        // We then create the Gym Leader using the fetched ObjectIds
         const newLeader = await GymLeaders.create({
             name,
             gym,
             badge,
-            pokemon,
+            pokemon: pokemonIds, // and pass the ids to the newly created leader
             reward,
             description
         });
-        //Log the New Gym Leader to the console
-        // console.log(`Data >>> ${newLeader}`)
-        res
-            .status(201)
-            .json({
-                success: true,
-                message: `${req.method} - Created new Gym Leader`,
-                //Present the new Leader on the response
-                data: newLeader
-            });
+
+        res.status(201).json({
+            success: true,
+            message: `${req.method} - Created new Gym Leader`,
+            data: newLeader
+        });
     } catch (error) {
-        res
-            .status(500)
-            .json({
-                success: false,
-                message: `${req.method}, failed ${error.message}`
-            })
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: `${req.method}, failed ${error.message}`
+        });
     }
 };
+
+
+
 //Can also use exports instead of const and no need to export.module
 const editGL = async (req, res) => {
     try {
+        //here we obtain the users input
         const {
             id
         } = req.params;
-
+        //process the error if the user's input is not found
         if (!id) {
             res
                 .status(400)
@@ -230,6 +257,7 @@ const editGL = async (req, res) => {
                     send: `${req.method}, no ID Provided`
                 })
         };
+        //we used find by id and update to "update this entry"
         const editedLeader = await GymLeaders.findByIdAndUpdate(id, req.body, {
             new: true
         })
