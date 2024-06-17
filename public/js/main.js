@@ -1,3 +1,3 @@
 import logPokemon from './apiCall.js';
-
-logPokemon("charrizard", "img");
+const description = document.getElementById("desc");
+description.innerHTML=logpokemon.name

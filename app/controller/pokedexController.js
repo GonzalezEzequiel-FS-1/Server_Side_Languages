@@ -198,7 +198,7 @@ const createPkmn = async (req, res) => {
             next_evolution,
             prev_evolution
         } = req.body;
-
+        
         if (!num || !name || !img || !type || !height || !weight) {
             return res.status(404).json({
                 success: false,

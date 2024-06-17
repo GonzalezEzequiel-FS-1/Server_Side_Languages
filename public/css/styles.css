@@ -13,6 +13,7 @@ body {
 .wrapper {
     display: flex;
     gap: 0;
+
 }
 
 #title {
@@ -21,6 +22,8 @@ body {
 
 .frame {
     width: 80%;
+
+    
     background-color: #c2c3c7;
     padding: 1rem;
     border-radius: 5%;
@@ -76,7 +79,7 @@ body {
     margin: 0;
     width: var(--contWidth);
     min-width: 24rem;
-    height: 70vh;
+    height: 90%;
     align-items: center;
     background:linear-gradient( #ff004d 80%, #b80239);
     border: 5px solid #971d52;
@@ -142,6 +145,13 @@ body {
     height: 2rem;
     border: 2px solid #971d52;
     box-shadow: 2px 2px 2px rgb(50, 50, 50);
+}
+.arrowbtns:active, .btns:active{
+    transform: scale(.9);
+    -webkit-transform: scale(.9);
+    -moz-transform: scale(.9);
+    -ms-transform: scale(.9);
+    -o-transform: scale(.9);
 }
 
 .arrowUp {
@@ -234,6 +244,7 @@ body {
     width: 3rem;
     height: 3rem;
     background:radial-gradient(#888888 80%, #c2c3c7);
+    box-shadow: 2px 2px 2px rgb(50, 50, 50);
 }
 .btns>p{
     text-align: center;
@@ -242,4 +253,10 @@ body {
     -moz-transform: rotate(20deg);
     -ms-transform: rotate(20deg);
     -o-transform: rotate(20deg);
+}
+
+.middle{
+    width:2rem;
+    height:100%;
+    background: linear-gradient(90deg, #222222 0%,#888888 40%, #888888 60%, #222222 100%);
 }

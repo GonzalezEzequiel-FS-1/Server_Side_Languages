@@ -8,14 +8,10 @@ app.use(express.json());
 
 app.use("/pokedex", routes);
 
-// app.get('/home', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'index.html'));
-//     console.log('Homepage accessed');
-// });
 
 app.use("/", async (req, res)=>{
     try{
-        res.sendFile(path.join(__dirname, 'public', 'index.html'));
+        //res.sendFile(path.join(__dirname, 'public', 'index.html'));
         res
         .status(200)
         .send({
@@ -27,4 +23,4 @@ app.use("/", async (req, res)=>{
     }
 });
 
-//module.exports = app;
+module.exports = app;
