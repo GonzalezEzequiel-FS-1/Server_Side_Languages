@@ -329,7 +329,30 @@ const delAll = async (req,res) =>{
         })
     }
 };
-            
+//Search Pokémons in a specific weight range:
+
+const fltrWeight = async (req, res) =>{
+    try{
+        const range = req.params;
+        if(!range){
+            res
+            .status(500)
+            .json({
+                success:false,
+                message:`${req.method} failed, no range provided`
+            });
+        }else if(range.ok){
+            const jsonRange = ``
+        }
+
+    }catch(error){
+        res
+        .response(500).json({
+            success:false,
+            message:`${req.method} failed >>> ${error}`
+        })
+    }
+}
 
             module.exports = {
                 getAllPkmn,

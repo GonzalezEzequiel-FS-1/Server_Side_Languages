@@ -38,6 +38,7 @@ Exeggutor
 Farfetch'd
 Fearow
 Flareon
+fltr
 Gastly
 Gengar
 Geodude
