@@ -10,7 +10,8 @@ const {
     editPkmn,
     uploadAll,
     getPkmnByWk,
-    delAll
+    delAll,
+    fltr
 } = require("../controller/pokedexController")
 
 
@@ -40,5 +41,8 @@ router.post("/dump", uploadAll)
 
 //Delete All entries
 router.delete("/deleteall", delAll)
+
+//filter:
+router.get("/filter", fltr)
 
 module.exports = router;

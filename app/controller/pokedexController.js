@@ -5,7 +5,7 @@ const capFirst = require("../misc/modules/capitalizeFirstLetter");
 const getAllPkmn = async (req, res) => {
     try {
         //Using
-        const pokedexData = await Pokedex.find({});
+        const pokedexData = await Pokedex.find(req.query);
         if (pokedexData.length === 0) {
             res.status(200).json({
                 /*
@@ -15,6 +15,7 @@ const getAllPkmn = async (req, res) => {
                 the array is empty, it was a successful query but there is nothing on it.
                 Does that make sense?
                 */
+                data:pokedexData,
                 success: true,
                 message: `No Pokémons in database.`
             });
@@ -329,30 +330,55 @@ const delAll = async (req,res) =>{
         })
     }
 };
-//Search Pokémons in a specific weight range:
+//Filter Pokémons by specific criteria:
 
-const fltrWeight = async (req, res) =>{
-    try{
-        const range = req.params;
-        if(!range){
-            res
-            .status(500)
-            .json({
-                success:false,
-                message:`${req.method} failed, no range provided`
+const fltr = async (req, res) => {
+    try {
+
+        //const pokedexData = await Pokedex.find(req.query);  //find by name working
+        /*
+        const pokedexData = await Pokedex.find(req.query);
+        const type = req.query.type;
+        console.log(type)
+        */ //find by type working
+        //const stringQuery = JSON.stringify(req.query)
+        //const query = req.query
+        //const value = query.weight
+        //const formattedWeight = `{weight : ${value} kg}`
+        //console.log(formattedWeight)
+        console.log(req.query)
+        let queryString = JSON.stringify(req.query);
+        queryString = queryString.replace(
+            /\b(gt|lt|eq|gte|lte|ne|in|nin)\b/g,
+            (match)=>`$${match}`
+        );
+        modifiedQuery = JSON.parse(queryString);
+        console.log(modifiedQuery)
+        const pokedexData = await Pokedex.find(modifiedQuery);
+        
+    
+        //const jsonResponse = JSON.stringify(req.query, 2, null)
+        //console.log(jsonResponse)
+        if (pokedexData.length === 0) {
+            res.status(200).json({
+                data:pokedexData,
+                success: true,
+                message: `No result found.`
             });
-        }else if(range.ok){
-            const jsonRange = ``
+            return;
+        } else {
+            res.status(200).json({   success: true,
+                //message: `${req.method} - Pokemon with ${jsonResponse} parameters found`,
+                data: pokedexData
+            });
         }
-
-    }catch(error){
-        res
-        .response(500).json({
-            success:false,
-            message:`${req.method} failed >>> ${error}`
-        })
+    } catch (error) {
+        res.status(501).json({
+            success: false,
+            message: `${req.method} failed please consult error >>> ${error}`
+        });
     }
-}
+};
 
             module.exports = {
                 getAllPkmn,
@@ -363,5 +389,6 @@ const fltrWeight = async (req, res) =>{
                 editPkmn,
                 uploadAll,
                 getPkmnByWk,
-                delAll
+                delAll,
+                fltr
             };
