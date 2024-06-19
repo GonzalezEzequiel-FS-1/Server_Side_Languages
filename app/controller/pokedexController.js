@@ -1,5 +1,6 @@
 const Pokedex = require("../models/pokedexModel")
 const capFirst = require("../misc/modules/capitalizeFirstLetter");
+const { query } = require("express");
 
 // Get All Pokemon
 const getAllPkmn = async (req, res) => {
@@ -334,7 +335,7 @@ const delAll = async (req,res) =>{
 
 const fltr = async (req, res) => {
     try {
-
+        
         //const pokedexData = await Pokedex.find(req.query);  //find by name working
         /*
         const pokedexData = await Pokedex.find(req.query);
@@ -346,17 +347,27 @@ const fltr = async (req, res) => {
         //const value = query.weight
         //const formattedWeight = `{weight : ${value} kg}`
         //console.log(formattedWeight)
-        console.log(req.query)
-        let queryString = JSON.stringify(req.query);
+        //console.log(req.query)
+        let queryObject = req.query
+        //console.log(queryObject)
+        
+        let queryString = JSON.stringify(queryObject);
+        let test = toString(queryString)
+        let weight = test.weight
+        let test2 = JSON.parse(weight);
+        let formatted = `${test2}kg`
+        console.log(formatted)
+        
         queryString = queryString.replace(
             /\b(gt|lt|eq|gte|lte|ne|in|nin)\b/g,
             (match)=>`$${match}`
         );
-        modifiedQuery = JSON.parse(queryString);
-        console.log(modifiedQuery)
-        const pokedexData = await Pokedex.find(modifiedQuery);
+       
         
-    
+        //console.log(queryString)
+        modifiedQuery = JSON.parse(queryString);
+        //console.log(modifiedQuery)
+        const pokedexData = await Pokedex.find(modifiedQuery);
         //const jsonResponse = JSON.stringify(req.query, 2, null)
         //console.log(jsonResponse)
         if (pokedexData.length === 0) {
