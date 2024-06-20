@@ -1,6 +1,8 @@
 const Pokedex = require("../models/pokedexModel")
 const capFirst = require("../misc/modules/capitalizeFirstLetter");
-const { query } = require("express");
+const {
+    query
+} = require("express");
 
 // Get All Pokemon
 const getAllPkmn = async (req, res) => {
@@ -16,7 +18,7 @@ const getAllPkmn = async (req, res) => {
                 the array is empty, it was a successful query but there is nothing on it.
                 Does that make sense?
                 */
-                data:pokedexData,
+                data: pokedexData,
                 success: true,
                 message: `No Pokémons in database.`
             });
@@ -90,20 +92,20 @@ const getPkmnbyName = async (req, res) => {
                 message: `${req.method}, no name provided`
             });
         }
-        
+
         const capName = capFirst(name);
         const selectedByName = await Pokedex.find({
             name: capName,
-        
+
         });
-        
+
         if (!selectedByName || selectedByName.length === 0) {
             return res.status(404).json({
                 success: false,
                 message: `${req.method}, Pokémon with the name ${capName} not found`
             });
         }
-        
+
         res.status(201).json({
             success: true,
             message: `${req.method} - Specific Pokémon Queried`,
@@ -119,34 +121,36 @@ const getPkmnbyName = async (req, res) => {
 };
 
 //Get Pokemon By Weakness
-const getPkmnByWk = async(req, res)=>{
-    try{
-        const { weak }= req.params
-        if(!weak || weak.length === 0){
+const getPkmnByWk = async (req, res) => {
+    try {
+        const {
+            weak
+        } = req.params
+        if (!weak || weak.length === 0) {
             res.status(404).json({
                 success: false,
-                message:`${req.method} failed unable to find Pokémons weak against ${weak} attribute type`
+                message: `${req.method} failed unable to find Pokémons weak against ${weak} attribute type`
             })
         };
         const capType = capFirst(weak);
         const weakAgainst = await Pokedex.find({
-            weaknesses : capType
+            weaknesses: capType
         });
-        if(weakAgainst.length === 0){
+        if (weakAgainst.length === 0) {
             res.status(404).json({
-                success:false,
-                message:`${req.method} failed unable to fetch resource ${weakAgainst}`
+                success: false,
+                message: `${req.method} failed unable to fetch resource ${weakAgainst}`
             })
         };
         res.status(201).json({
-            success:true,
+            success: true,
             message: `${weakAgainst.length} Pokémons weak against ${weak} found.`,
-            data:weakAgainst
+            data: weakAgainst
         })
-    }catch(error){
+    } catch (error) {
         res.status(501).json({
-            success:false,
-            message:`${req.method} failed, please consult ${error.message} `
+            success: false,
+            message: `${req.method} failed, please consult ${error.message} `
         })
     }
 };
@@ -200,7 +204,7 @@ const createPkmn = async (req, res) => {
             next_evolution,
             prev_evolution
         } = req.body;
-        
+
         if (!num || !name || !img || !type || !height || !weight) {
             return res.status(404).json({
                 success: false,
@@ -270,34 +274,6 @@ const editPkmn = async (req, res) => {
 };
 //Upload Multiple Pokémons
 const uploadAll = async (req, res) => {
-            try {
-                //Requesting the data from the user
-                const pokemonArray = req.body;
-                //Check if the data is valid, or if its there at all
-                if (!pokemonArray || pokemonArray.length === 0) {
-                    res.status(501).json({
-                        success: false,
-                        message: `${req.method} - No data or incomplete data provided`
-                    })
-                    return;
-                };
-                //"Pack the data and send it to the DB using insertMany"
-                const arrayToUpload = await Pokedex.insertMany(pokemonArray)
-                    res.status(201).json({
-                        success: true,
-                        message:`Created ${arrayToUpload.length} Pokémon Successfully`
-                    });
-                //Finnaly catch any errors and display the code and message.
-            } catch (error) {
-                res.status(404).json({
-                    success:false,
-                    message:`Failed to create Pokémons ${error.message}`
-                })
-            }
-        }
-
-//Delete All Pokémons
-const delAll = async (req,res) =>{
     try {
         //Requesting the data from the user
         const pokemonArray = req.body;
@@ -309,88 +285,147 @@ const delAll = async (req,res) =>{
             })
             return;
         };
-        
+        //"Pack the data and send it to the DB using insertMany"
+        const arrayToUpload = await Pokedex.insertMany(pokemonArray)
+        res.status(201).json({
+            success: true,
+            message: `Created ${arrayToUpload.length} Pokémon Successfully`
+        });
+        //Finnaly catch any errors and display the code and message.
+    } catch (error) {
+        res.status(404).json({
+            success: false,
+            message: `Failed to create Pokémons ${error.message}`
+        })
+    }
+}
+
+//Delete All Pokémons
+const delAll = async (req, res) => {
+    try {
+        //Requesting the data from the user
+        const pokemonArray = req.body;
+        //Check if the data is valid, or if its there at all
+        if (!pokemonArray || pokemonArray.length === 0) {
+            res.status(501).json({
+                success: false,
+                message: `${req.method} - No data or incomplete data provided`
+            })
+            return;
+        };
+
         //"Pack the data and send it to the DB using deleteMany"
         const arrayToUpload = await Pokedex.deleteMany(pokemonArray)
         //If there are no Pokémons on the database, send a success code with a message stating that there are no pokémons to retrieve.
-        if(arrayToUpload.deletedCount === 0){
+        if (arrayToUpload.deletedCount === 0) {
             res.status(200).json({
-                status:true,
-                message:"No Pokémons on database"
+                status: true,
+                message: "No Pokémons on database"
             })
         }
-            res.status(200).json({
-                success: true,
-                message:`Deleted ${arrayToUpload.deletedCount} all Pokémons Successfully`
-            });
+        res.status(200).json({
+            success: true,
+            message: `Deleted ${arrayToUpload.deletedCount} all Pokémons Successfully`
+        });
         //Finally catch any errors and display the code and message.
     } catch (error) {
         res.status(404).json({
-            success:false,
-            message:`Failed to Delete Gym Leaders ${error.message}`
+            success: false,
+            message: `Failed to Delete Gym Leaders ${error.message}`
         })
     }
 };
 //Filter Pokémons by specific criteria:
 const filter = async (req, res) => {
+    try{
     let queryString = JSON.stringify(req.query)
-    console.log(`${req.method} works and the query is ${queryString} `)
+    //console.log(`${req.method} works and the query is ${queryString} `)
     queryString = queryString.replace(
+        //we use a regex to format the query in order for mongo to "understand" it
         /\b(gt|gte|lt|lte)\b/g,
         (match) => `$${match}`
     );
-    
-    let jsonParse = JSON.parse(queryString)
-    console.log(jsonParse)
+    //let jsonParse = JSON.parse(queryString)
+    //console.log(jsonParse)
     const pokemons = await Pokedex.find(JSON.parse(queryString))
     res.status(200).json({
-        message:`${pokemons.count} pokemons fetched`,
-        status:"success",
-        message:"pokemons fetched",
-        data:pokemons
+        message: `${pokemons.count} pokemons fetched`,
+        status: "success",
+        message: "pokemons fetched",
+        data: pokemons
     })
+}catch (error){res.status(500).json({
+    success:false,
+    message:`${req.method} failed, consult ${error}`
+})}
 };
 //Select items from query:
 const select = async (req, res) => {
-    let queryString = JSON.stringify(req.query)
-    console.log(`${req.method} works and the query is ${queryString} `)
-    queryString = queryString.replace(
-        /\b(gt|gte|lt|lte)\b/g,
-        (match) => `$${match}`
-    );
-    console.log("Running Select")
-    let jsonParse = JSON.parse(queryString);
-    console.log(jsonParse)
-    let query= Pokedex.find(JSON.parse(queryString));
-    
-    if(req.query.select){
-        const fields = req.query.select.split(',').join(' ')
-        query = Pokedex.find({}).select(fields);
+    try {
+        let queryString = JSON.stringify(req.query)
+        //Handle the error if there is no user input
+        if (!queryString) {
+            res.status(400).json({
+                success: false,
+                message: `${req.method} failed, consult ${error}`
+            })
+        } else {
+            console.log(`${req.method} works and the query is ${queryString} `)
+            queryString = queryString.replace(
+                /\b(gt|gte|lt|lte)\b/g,
+                (match) => `$${match}`
+            );
+            console.log("Running Select")
+            let jsonParse = JSON.parse(queryString);
+            //console.log(jsonParse)
+            let query = Pokedex.find(JSON.parse(queryString));
+            //if statement to run select
+            if (req.query.select) {
+                const fields = req.query.select.split(',').join(' ')
+                query = Pokedex.find({}).select(fields);
+            }
+            //if statement to run sort
+            if (req.query.sort) {
+                console.log(`Sort working`)
+                const sortBy = req.query.sort.split(',').join(' ')
+                query = Pokedex.find({}).sort(sortBy);
+            }
+            //if statement to run pagination
+            if (req.query.page) {
+                query = Pokedex.find({})
+                const page = parseInt(req.query.page) || 1;
+                const limit = parseInt(req.query.limit) || 2;
+                const skip = (page - 1) * limit;
+                query.skip(skip).limit(limit);
+            }
+            const pokemons = await query;
+            console.log(pokemons)
+
+            res.status(200).json({
+                message: `${pokemons.count} pokemons fetched`,
+                status: "success",
+                message: "pokemons fetched",
+                data: pokemons
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: `${req.method} failed, consult ${error}`
+        })
     }
-    if(req.query.sort){
-        console.log(`Sort working`)
-    }
-    const pokemons = await query;
-    console.log(pokemons)
-    
-    res.status(200).json({
-        message:`${pokemons.count} pokemons fetched`,
-        status:"success",
-        message:"pokemons fetched",
-        data:pokemons
-    })
 
 };
-            module.exports = {
-                getAllPkmn,
-                getPkmnbyID,
-                getPkmnbyName,
-                delPkmn,
-                createPkmn,
-                editPkmn,
-                uploadAll,
-                getPkmnByWk,
-                delAll,
-                filter,
-                select
-            };
+module.exports = {
+    getAllPkmn,
+    getPkmnbyID,
+    getPkmnbyName,
+    delPkmn,
+    createPkmn,
+    editPkmn,
+    uploadAll,
+    getPkmnByWk,
+    delAll,
+    filter,
+    select
+};
