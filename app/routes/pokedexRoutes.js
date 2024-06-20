@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+
 const {
     getAllPkmn,
     getPkmnbyID,
@@ -11,7 +12,7 @@ const {
     uploadAll,
     getPkmnByWk,
     delAll,
-    fltr
+    filter
 } = require("../controller/pokedexController")
 
 
@@ -43,6 +44,7 @@ router.post("/dump", uploadAll)
 router.delete("/deleteall", delAll)
 
 //filter:
-router.get("/filter", fltr)
+router.get("/filter", filter)
+
 
 module.exports = router;

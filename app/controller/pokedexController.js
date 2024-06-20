@@ -332,63 +332,23 @@ const delAll = async (req,res) =>{
     }
 };
 //Filter Pokémons by specific criteria:
-
-const fltr = async (req, res) => {
-    try {
-        
-        //const pokedexData = await Pokedex.find(req.query);  //find by name working
-        /*
-        const pokedexData = await Pokedex.find(req.query);
-        const type = req.query.type;
-        console.log(type)
-        */ //find by type working
-        //const stringQuery = JSON.stringify(req.query)
-        //const query = req.query
-        //const value = query.weight
-        //const formattedWeight = `{weight : ${value} kg}`
-        //console.log(formattedWeight)
-        //console.log(req.query)
-        let queryObject = req.query
-        //console.log(queryObject)
-        
-        let queryString = JSON.stringify(queryObject);
-        let test = toString(queryString)
-        let weight = test.weight
-        let test2 = JSON.parse(weight);
-        let formatted = `${test2}kg`
-        console.log(formatted)
-        
-        queryString = queryString.replace(
-            /\b(gt|lt|eq|gte|lte|ne|in|nin)\b/g,
-            (match)=>`$${match}`
-        );
-       
-        
-        //console.log(queryString)
-        modifiedQuery = JSON.parse(queryString);
-        //console.log(modifiedQuery)
-        const pokedexData = await Pokedex.find(modifiedQuery);
-        //const jsonResponse = JSON.stringify(req.query, 2, null)
-        //console.log(jsonResponse)
-        if (pokedexData.length === 0) {
-            res.status(200).json({
-                data:pokedexData,
-                success: true,
-                message: `No result found.`
-            });
-            return;
-        } else {
-            res.status(200).json({   success: true,
-                //message: `${req.method} - Pokemon with ${jsonResponse} parameters found`,
-                data: pokedexData
-            });
-        }
-    } catch (error) {
-        res.status(501).json({
-            success: false,
-            message: `${req.method} failed please consult error >>> ${error}`
-        });
-    }
+const filter = async (req, res) => {
+    let queryString = JSON.stringify(req.query)
+    console.log(`${req.method} works and the query is ${queryString} `)
+    queryString = queryString.replace(
+        /\b(gt|gte|lt|lte)\b/g,
+        (match) => `$${match}`
+    );
+    
+    let jsonParse = JSON.parse(queryString)
+    console.log(jsonParse)
+    const pokemons = await Pokedex.find(JSON.parse(queryString))
+    res.status(200).json({
+        message:`${pokemons.count} pokemons fetched`,
+        status:"success",
+        message:"pokemons fetched",
+        data:pokemons
+    })
 };
 
             module.exports = {
@@ -401,5 +361,5 @@ const fltr = async (req, res) => {
                 uploadAll,
                 getPkmnByWk,
                 delAll,
-                fltr
+                filter
             };
