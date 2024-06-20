@@ -350,7 +350,37 @@ const filter = async (req, res) => {
         data:pokemons
     })
 };
+//Select items from query:
+const select = async (req, res) => {
+    let queryString = JSON.stringify(req.query)
+    console.log(`${req.method} works and the query is ${queryString} `)
+    queryString = queryString.replace(
+        /\b(gt|gte|lt|lte)\b/g,
+        (match) => `$${match}`
+    );
+    console.log("Running Select")
+    let jsonParse = JSON.parse(queryString);
+    console.log(jsonParse)
+    let query= Pokedex.find(JSON.parse(queryString));
+    
+    if(req.query.select){
+        const fields = req.query.select.split(',').join(' ')
+        query = Pokedex.find({}).select(fields);
+    }
+    if(req.query.sort){
+        console.log(`Sort working`)
+    }
+    const pokemons = await query;
+    console.log(pokemons)
+    
+    res.status(200).json({
+        message:`${pokemons.count} pokemons fetched`,
+        status:"success",
+        message:"pokemons fetched",
+        data:pokemons
+    })
 
+};
             module.exports = {
                 getAllPkmn,
                 getPkmnbyID,
@@ -361,5 +391,6 @@ const filter = async (req, res) => {
                 uploadAll,
                 getPkmnByWk,
                 delAll,
-                filter
+                filter,
+                select
             };
