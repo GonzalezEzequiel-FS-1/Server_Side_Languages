@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-
-
 const {
     getAllPkmn,
     getPkmnbyID,
@@ -49,6 +47,8 @@ router.get("/filter", filter)
 
 //Select:
 router.get("/select", select)
+//tstrt
+//router.get("/tst", getAllPkmnTst)
 
 
 module.exports = router;
