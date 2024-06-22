@@ -117,8 +117,10 @@ Raichu
 Rapidash
 Raticate
 Rattata
+restest
 Rhydon
 Rhyhorn
+runfunc
 Sandshrew
 Sandslash
 Scyther
