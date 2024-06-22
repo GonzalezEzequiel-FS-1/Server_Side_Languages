@@ -1,24 +1,36 @@
-const testing = require("./axiostest");
-
+const testing = require("./axiosQuery");
 
 
 describe("Testing response's structure", () => {
-    test("Does the response contain the number", async () => {
+    test("Is the response returning the rigtht entry?", async () => {
+            //Check if the number is being generated
             const response = await testing();
             const number = response[0].num
-            expect(number).toBe(1);
-            
+            expect(number).toBe(4);
     });
+    test("Is the name the one we expect?", async ()=>{
+        const response = await testing();
+        //Check if the name is present
+        const name = response[0].name
+        expect(name).toBe('Charmander');
+    });
+    test("Is it returning the correct weaknesses", async ()=>{
+        const response = await testing();
+        const weak = response[0].weaknesses;
+        expect(Array.isArray(weak)).toBe(true);
+        expect(weak).toContainEqual('Water', 'Ground', 'Rock')
+    });
+    test("Is the Image a URL?", async ()=>{
+        const response = await testing();
+        const image = response[0].img;
+        expect(image).toMatch(/\b(http|com|pokemon|png)\b/g);
+    })
 });
 
-describe("Testing response's structure", () => {
-    test("Is the height a number?", async () => {
-            const response = await testing();
-            const number = response[0].num
-            expect(typeof number).toBe('number');
-            
-    });
-});
+
+
+
+
 
 /*
 
