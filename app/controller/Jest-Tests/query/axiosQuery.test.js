@@ -26,9 +26,9 @@ describe("Testing individual functions", () => {
         expect(response).toHaveLength(151);
     });
     test("Fetch Pokémon with selected fields", async () => {
-        const thirdResponse = await fetchPokemonSelected();
-        console.log(thirdResponse)
-        // expect(response[0].num).toBeDefined();
-        // expect(response[0].name).toBeDefined();
+        const response = await fetchPokemonSelected();
+        console.log(response)
+        expect(response[0].num).toBeDefined();
+        expect(response[0].name).toBeDefined();
     });
 });
