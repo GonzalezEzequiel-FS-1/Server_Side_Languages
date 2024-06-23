@@ -1,5 +1,5 @@
 const testing = require("./axiosGet");
-
+let query = ["?name=Charmander", "select?sort=-num", "?select=num,name"]
 
 describe("Testing response's structure", () => {
     test("Does the response contain the number?", async () => {

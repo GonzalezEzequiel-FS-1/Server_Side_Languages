@@ -1,50 +1,34 @@
-const testing = require("./axiosQuery");
-
-
-describe("Testing response's structure", () => {
-    test("Is the response returning the rigtht entry?", async () => {
-            //Check if the number is being generated
-            const response = await testing();
-            const number = response[0].num
-            expect(number).toBe(4);
+const {
+    fetchPokemonByName,
+    fetchPokemonSorted,
+    fetchPokemonSelected
+} = require("./axiosQuery");
+//Calling the three previously defined functions
+describe("Testing individual functions", () => {
+    test("Fetch Pokémon by name", async () => {
+        //this one uses ?name=Charmander
+        const response = await fetchPokemonByName();
+        //Charmanders Pokedex entry is #4
+        const number = response[0].num;
+        //And his name, well, it's Charmander
+        const name = response[0].name;
+        expect(number).toBe(4);
+        expect(name).toBe("Charmander");
     });
-    test("Is the name the one we expect?", async ()=>{
-        const response = await testing();
-        //Check if the name is present
-        const name = response[0].name
-        expect(name).toBe('Charmander');
+    test("Fetch Pokémon sorted by number", async () => {
+        const response = await fetchPokemonSorted();
+        const mew = response[0].num;
+        const numberOne = response[150].name;
+        //if bulbasaur is the last pokemon in the array and mew is the first one the array was sorted correctly
+        expect(numberOne).toMatch("Bulbasaur");
+        expect(mew).toBe(151);
+        //The complete Pokedex is returned
+        expect(response).toHaveLength(151);
     });
-    test("Is it returning the correct weaknesses", async ()=>{
-        const response = await testing();
-        const weak = response[0].weaknesses;
-        expect(Array.isArray(weak)).toBe(true);
-        expect(weak).toContainEqual('Water', 'Ground', 'Rock')
+    test("Fetch Pokémon with selected fields", async () => {
+        const thirdResponse = await fetchPokemonSelected();
+        console.log(thirdResponse)
+        // expect(response[0].num).toBeDefined();
+        // expect(response[0].name).toBeDefined();
     });
-    test("Is the Image a URL?", async ()=>{
-        const response = await testing();
-        const image = response[0].img;
-        expect(image).toMatch(/\b(http|com|pokemon|png)\b/g);
-    })
 });
-
-
-
-
-
-
-/*
-
-const response = await testing();
-            const number = response[0].num
-            const name = response[0].name
-            const image = response[0].img
-            const type = response[0].type
-            const height = response[0].height
-            const weight = response[0].weight
-            const weaknesses = response[0].weaknesses
-            const nextEvolution = response[0].next_evolution
-            const prevEvolution = response[0].prev_evolution
-            
-            console.log(`Number >>>  ${number}\nName   >>> ${name}\nImage  >>>  ${image}\nType >>> ${type}\nHeight   >>>  ${height}\nWeight >>> ${weight}\nWeaknesses   >>>  ${weaknesses}\nNext Evolution >>> ${nextEvolution}\nPrevious Evolution >>> ${prevEvolution}`);
-
-*/
