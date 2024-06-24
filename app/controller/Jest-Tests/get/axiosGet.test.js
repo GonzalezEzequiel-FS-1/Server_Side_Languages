@@ -14,7 +14,7 @@ describe("Testing response's structure", () => {
         const name = response[0].name
         expect(name).toBe('Bulbasaur');
     })
-    test("Is the types array being generated?", async ()=>{
+    test("Is the \"types\" array being generated?", async ()=>{
         const response = await testing();
         const type = response[0].type;
         expect(Array.isArray(type)).toBe(true);

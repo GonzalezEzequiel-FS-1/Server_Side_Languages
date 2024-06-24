@@ -370,12 +370,12 @@ const select = async (req, res) => {
                 message: `${req.method} failed, consult ${error}`
             })
         } else {
-            console.log(`${req.method} works and the query is ${queryString} `)
+            //console.log(`${req.method} works and the query is ${queryString} `)
             queryString = queryString.replace(
                 /\b(gt|gte|lt|lte)\b/g,
                 (match) => `$${match}`
             );
-            console.log("Running Select")
+            //console.log("Running Select")
             let jsonParse = JSON.parse(queryString);
             //console.log(jsonParse)
             let query = Pokedex.find(JSON.parse(queryString));
@@ -386,7 +386,7 @@ const select = async (req, res) => {
             }
             //if statement to run sort
             if (req.query.sort) {
-                console.log(`Sort working`)
+                //console.log(`Sort working`)
                 const sortBy = req.query.sort.split(',').join(' ')
                 query = Pokedex.find({}).sort(sortBy);
             }
@@ -399,7 +399,7 @@ const select = async (req, res) => {
                 query.skip(skip).limit(limit);
             }
             const pokemons = await query;
-            console.log(pokemons)
+            //console.log(pokemons)
 
             res.status(200).json({
                 message: `${pokemons.count} pokemons fetched`,

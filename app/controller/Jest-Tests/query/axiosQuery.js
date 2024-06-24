@@ -25,7 +25,7 @@ const fetchPokemonSorted = async () => {
 const fetchPokemonSelected = async () => {
     try {
         const response = await axios.get(`http://127.0.0.1:6969/api/pokedex/genone/select?select=num,name`);
-        console.log(response.data.data)
+        //console.log(response.data.data)
         return response.data.data
         
         //console.log(`${process.env.APIURL}select?=num,name`)
@@ -37,7 +37,6 @@ const fetchPokemonSelected = async () => {
         throw error;
     }
 };
-fetchPokemonSelected()
 module.exports = {
     fetchPokemonByName,
     fetchPokemonSorted,
