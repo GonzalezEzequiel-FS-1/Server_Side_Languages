@@ -10,6 +10,7 @@ describe("Check the structure of the query", ()=>{
         const success = response.data[0].success;
         expect(success).toBeTruthy()
         expect(Array.isArray(response.data)).toBe(true);
-        
+        //console.log(data)
+        expect(data[1].num).toBe(Number)
     })
 })
