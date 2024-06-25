@@ -42,7 +42,6 @@ const getAllPkmn = async (req, res) => {
         });
     }
 };
-
 // Get Pokémon by ID
 //Almost the same principle as the get all but this time we provide an ID as part of the URI
 const getPkmnbyID = async (req, res) => {
@@ -337,27 +336,29 @@ const delAll = async (req, res) => {
 };
 //Filter Pokémons by specific criteria:
 const filter = async (req, res) => {
-    try{
-    let queryString = JSON.stringify(req.query)
-    //console.log(`${req.method} works and the query is ${queryString} `)
-    queryString = queryString.replace(
-        //we use a regex to format the query in order for mongo to "understand" it
-        /\b(gt|gte|lt|lte)\b/g,
-        (match) => `$${match}`
-    );
-    //let jsonParse = JSON.parse(queryString)
-    //console.log(jsonParse)
-    const pokemons = await Pokedex.find(JSON.parse(queryString))
-    res.status(200).json({
-        message: `${pokemons.count} pokemons fetched`,
-        status: "success",
-        message: "pokemons fetched",
-        data: pokemons
-    })
-}catch (error){res.status(500).json({
-    success:false,
-    message:`${req.method} failed, consult ${error}`
-})}
+    try {
+        let queryString = JSON.stringify(req.query)
+        //console.log(`${req.method} works and the query is ${queryString} `)
+        queryString = queryString.replace(
+            //we use a regex to format the query in order for mongo to "understand" it
+            /\b(gt|gte|lt|lte)\b/g,
+            (match) => `$${match}`
+        );
+        //let jsonParse = JSON.parse(queryString)
+        //console.log(jsonParse)
+        const pokemons = await Pokedex.find(JSON.parse(queryString))
+        res.status(200).json({
+            message: `${pokemons.count} pokemons fetched`,
+            status: "success",
+            message: "pokemons fetched",
+            data: pokemons
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: `${req.method} failed, consult ${error}`
+        })
+    }
 };
 //Select items from query:
 const select = async (req, res) => {
@@ -416,6 +417,88 @@ const select = async (req, res) => {
     }
 
 };
+
+const sorting = async (req, res) => {
+    try {
+        let queryString = JSON.stringify(req.query)
+        //Handle the error if there is no user input
+        if (!queryString) {
+            res.status(400).json({
+                success: false,
+                message: `${req.method} failed, consult ${error}`
+            })
+        } else {
+            //console.log(`${req.method} works and the query is ${queryString} `)
+            queryString = queryString.replace(
+                /\b(gt|gte|lt|lte)\b/g,
+                (match) => `$${match}`
+            );
+            //console.log("Running Select")
+            let jsonParse = JSON.parse(queryString);
+            //console.log(jsonParse)
+            let query = Pokedex.find(JSON.parse(queryString));
+            //if statement to run select
+            if (req.query.select) {
+                const fields = req.query.select.split(',').join(' ')
+                query = Pokedex.find({}).select(fields);
+            }
+            //if statement to run sort
+            if (req.query.sort) {
+                //console.log(`Sort working`)
+                const sortBy = req.query.sort.split(',').join(' ')
+                query = Pokedex.find({}).sort(sortBy);
+            }
+            //if statement to run pagination
+            if (req.query.page) {
+                query = Pokedex.find({})
+                const page = parseInt(req.query.page) || 1;
+                const limit = parseInt(req.query.limit) || 2;
+                const skip = (page - 1) * limit;
+                query.skip(skip).limit(limit);
+            }
+            const pokemons = await query;
+            //console.log(pokemons)
+
+            res.status(200).json({
+                message: `${pokemons.count} pokemons fetched`,
+                status: "success",
+                message: "pokemons fetched",
+                data: pokemons
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: `${req.method} failed, consult ${error}`
+        })
+    }
+
+};
+
+const posSort = async (req, res) => {
+    try {
+        let query = Pokedex.find({});
+
+        if (req.query.sort) {
+            const sortBy = req.query.sort.split(',').join(' ');
+            query = query.sort(sortBy);
+        }
+
+        const pokemons = await query.exec();
+
+        res.status(200).json({
+            message: `${pokemons.length} pokemons fetched`,
+            status: "success",
+            data: pokemons
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: `${req.method} failed, consult ${error.message}`
+        });
+    }
+};
+
 module.exports = {
     getAllPkmn,
     getPkmnbyID,
@@ -427,5 +510,7 @@ module.exports = {
     getPkmnByWk,
     delAll,
     filter,
-    select
+    select,
+    sorting,
+    posSort
 };

@@ -11,7 +11,9 @@ const {
     getPkmnByWk,
     delAll,
     filter,
-    select
+    select,
+    sorting,
+    posSort
 } = require("../controller/pokedexController")
 
 
@@ -47,8 +49,9 @@ router.get("/filter", filter)
 
 //Select:
 router.get("/select", select)
-//tstrt
-//router.get("/tst", getAllPkmnTst)
+//Exclusively for testing sorting, since it can be done with the "select" route
+router.get("/sort", sorting)
+router.get("/possort", posSort)
 
 
 module.exports = router;
