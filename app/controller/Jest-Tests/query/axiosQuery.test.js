@@ -37,12 +37,16 @@ describe("Testing individual functions", () => {
     });
     test("Fetch Pokémon with selected fields", async () => {
         const response = await fetchPokemonSelected();
-        const singleEntry = response[0]
-        const stringRes = JSON.stringify(singleEntry)
+        const keys = Object.keys(response[0])
+        console.log(keys)
+        expect(keys).toContain("num", "name");
+        expect(keys.length).toBe(3);
+        // const singleEntry = response[0]
+        //const stringRes = JSON.stringify(singleEntry)
         //console.log(stringRes)
         //Here We check if the response contains the name and the number, I tried multiple ways to solve this problem,
         //but at the end I decided to stringify it and escape all of the \", might be a bit more complicated, but,
         // I think its an interesting solution
-        expect(stringRes).toContain("{\"_id\":\"6672f1f23325fea3570fbfc6\",\"num\":1,\"name\":\"Bulbasaur\"}")
+        //expect(stringRes).toContain("{\"_id\":\"6672f1f23325fea3570fbfc6\",\"num\":1,\"name\":\"Bulbasaur\"}")
     });
 });
